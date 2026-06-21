@@ -10,6 +10,7 @@ import {
   finalsRecord,
   finalsBetween,
   parseScore,
+  reignBlocks,
 } from "../src/lib/transforms.js";
 
 const champs = [
@@ -87,6 +88,25 @@ test("parseScore classifies sets, tiebreaks and retirements", () => {
   const ret = parseScore("5-0 RET");
   assert.equal(ret.retired, true);
   assert.equal(ret.category, "retired");
+});
+
+test("reignBlocks merges consecutive same-champion editions", () => {
+  const fix = [
+    { year: 2018, slam: "Wimbledon", date: "20180702", champion: "Djokovic" },
+    { year: 2019, slam: "Wimbledon", date: "20190701", champion: "Djokovic" },
+    { year: 2021, slam: "Wimbledon", date: "20210628", champion: "Djokovic" }, // 2020 not held
+    { year: 2022, slam: "Wimbledon", date: "20220627", champion: "Federer" },
+    { year: 1977, slam: "Australian Open", date: "19770101", champion: "Tanner" },
+    { year: 1977, slam: "Australian Open", date: "19771219", champion: "Gerulaitis" }, // same year, dropped
+  ];
+  const b = reignBlocks(fix);
+  const dj = b.find((x) => x.slam === "Wimbledon" && x.champion === "Djokovic");
+  assert.deepEqual([dj.startYear, dj.endYear, dj.count], [2018, 2021, 3]);
+  assert.equal(b.find((x) => x.slam === "Wimbledon" && x.champion === "Federer").count, 1);
+  // earliest-by-date wins the de-dupe for the twice-held 1977 Australian Open
+  const ao = b.filter((x) => x.slam === "Australian Open");
+  assert.equal(ao.length, 1);
+  assert.equal(ao[0].champion, "Tanner");
 });
 
 test("cumulativeByCountry accumulates titles by country over years", () => {

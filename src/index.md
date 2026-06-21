@@ -65,7 +65,7 @@ hr.rule { border:none; border-top:1px solid var(--faint); margin:0; }
 ```js
 import {
   topPlayers, cumulativeByYear, titlesByPlayerSlam, titlesByPlayerSurface,
-  finalsAppearances, finalsRecord, finalsBetween, parseScore,
+  finalsAppearances, finalsRecord, finalsBetween, parseScore, reignBlocks,
   yearExtent
 } from "./lib/transforms.js";
 import {
@@ -475,49 +475,57 @@ Plot.plot({
 <div class="viz-head">
 <div class="kicker">5 · The Dynasty Map</div>
 
-## Who owned each major, year by year
+## Reigns at the four majors
 
-<div class="deck">Every Grand Slam final result, laid out as a calendar. Vertical streaks are dynasties — pick a champion to watch their reign light up across the decades.</div>
+<div class="deck">The four majors as parallel timelines, 1968 to today. Back-to-back wins by the same champion merge into one reign — the long colour streaks are the dynasties. Pick a champion to trace theirs.</div>
 </div>
 
 ```js
-const c5_focus = view(Inputs.select(["— none —", ...TOP_NAMES], {label: "Spotlight a champion", value: "— none —"}));
+const c5_spot = view(Inputs.select(
+  ["— none —", ...[...new Set(champions.map((c) => c.champion))].sort()],
+  {label: "Spotlight a champion", value: "— none —"}
+));
 ```
 ```js
 const c5_slamOrder = ["Australian Open", "Roland Garros", "Wimbledon", "US Open"];
 const c5_topset = new Set(TOP_NAMES);
-const c5_years = d3.range(maxYear, minYear - 1, -1);
-const c5_cells = champions.map((c) => {
-  const isTop = c5_topset.has(c.champion);
-  const own = isTop ? colorForPlayer(TOP_NAMES, c.champion) : "#d8d3c9";
-  let fill = own, ink = isTop ? "#fff" : "#6b6b6b";
-  if (c5_focus !== "— none —") {
-    if (c.champion === c5_focus) { fill = colorForPlayer(TOP_NAMES, c.champion); ink = "#fff"; }
-    else { fill = "#edeae3"; ink = "#b9b4aa"; }
+const c5_blocks = reignBlocks(champions).map((b) => {
+  const isTop = c5_topset.has(b.champion);
+  let fill = isTop ? colorForPlayer(TOP_NAMES, b.champion) : "#dad5cb";
+  let ink = isTop ? "#fff" : "#615c54";
+  if (c5_spot !== "— none —") {
+    if (b.champion === c5_spot) { fill = isTop ? colorForPlayer(TOP_NAMES, b.champion) : "#1a1a1a"; ink = "#fff"; }
+    else { fill = "#eeebe5"; ink = "#c2bdb3"; }
   }
-  return {...c, _fill: fill, _ink: ink, _last: lastName(c.champion)};
+  // Default: label every reign. Spotlight: label only the chosen champion.
+  const labelled = c5_spot === "— none —" ? b.count >= 2 : b.champion === c5_spot;
+  return {...b, _fill: fill, _ink: ink, _label: labelled ? lastName(b.champion) : ""};
 });
 ```
 ```js
 Plot.plot({
   ...base,
   width,
-  height: Math.max(560, c5_years.length * 15.5),
-  marginTop: 34,
-  marginLeft: 52,
-  marginRight: 12,
-  x: {domain: c5_slamOrder, label: null, axis: "top", tickSize: 0},
-  y: {domain: c5_years, label: null, tickFormat: "d", ticks: d3.range(1970, maxYear + 1, 5)},
+  height: 280,
+  marginTop: 26,
+  marginLeft: 112,
+  marginRight: 16,
+  x: {label: null, tickFormat: "d", domain: [minYear, maxYear + 1], ticks: d3.range(1970, maxYear + 1, 10)},
+  y: {domain: c5_slamOrder, label: null, tickSize: 0},
   color: {type: "identity"},
   marks: [
-    Plot.cell(c5_cells, {x: "slam", y: "year", fill: "_fill", inset: 0.7,
-      tip: true, channels: {year: "year", slam: "slam", champion: "champion", runnerUp: "runner_up", score: "score"}}),
-    Plot.text(c5_cells, {x: "slam", y: "year", text: "_last", fill: "_ink", fontSize: 9.5, fontWeight: 500})
+    Plot.barX(c5_blocks, {x1: "startYear", x2: (d) => d.endYear + 1, y: "slam", fill: "_fill",
+      stroke: "white", strokeWidth: 1.4, insetTop: 6, insetBottom: 6,
+      tip: true, channels: {champion: "champion",
+        reign: (d) => d.startYear === d.endYear ? `${d.startYear}` : `${d.startYear}–${d.endYear}`,
+        "titles in a row": "count"}}),
+    Plot.text(c5_blocks, {x: (d) => (d.startYear + d.endYear + 1) / 2, y: "slam", text: "_label",
+      fill: "_ink", fontSize: 10, fontWeight: 600})
   ]
 })
 ```
 
-<div class="fignote">Colour marks the ten all-time leaders; lighter cells are everyone else. Some Australian Open years are missing from the early Open era.</div></div>
+<div class="fignote">One champion per tournament per year; consecutive titles merge into a reign, labelled when two or more. Gaps are years a major wasn't held. Hover any block for the champion and years.</div></div>
 
 <hr class="rule">
 
