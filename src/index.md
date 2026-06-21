@@ -48,12 +48,25 @@ hr.rule { border:none; border-top:1px solid var(--faint); margin:0; }
   font:400 17px/1.5 Georgia,serif; color:var(--soft); }
 .step-card strong { color:var(--ink); font-weight:700; }
 .step-card p { margin:0; }
+/* head-to-head panel */
+.h2h { margin:1.2rem 0 0; }
+.h2h-score { display:flex; align-items:center; justify-content:center; gap:1.3rem;
+  font:400 19px Georgia,serif; color:var(--soft); margin-bottom:1.1rem; }
+.h2h-score strong { font-size:32px; font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums; }
+.h2h-table { width:100%; border-collapse:collapse; font:400 14px/1.5 "Helvetica Neue",Arial,sans-serif; }
+.h2h-table th { text-align:left; font:700 10.5px/1.4 "Helvetica Neue",Arial,sans-serif;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--muted);
+  border-bottom:1px solid var(--faint); padding:.45rem .6rem; }
+.h2h-table td { padding:.45rem .6rem; border-bottom:1px solid var(--faint); color:var(--soft); }
+.h2h-table td.h2h-win { font-weight:700; color:var(--ink); }
+.h2h-empty { text-align:center; color:var(--muted); font:400 15px Georgia,serif; padding:1.4rem; }
 </style>
 
 ```js
 import {
   topPlayers, cumulativeByYear, titlesByPlayerSlam, titlesByPlayerSurface,
-  finalsMatrix, titlesByCountry, cumulativeByCountry, yearExtent
+  finalsAppearances, finalsRecord, finalsBetween,
+  titlesByCountry, cumulativeByCountry, yearExtent
 } from "./lib/transforms.js";
 import {
   INK, MUTED, FAINT, ACCENT, PLAYER_COLORS, SLAM_COLORS, SURFACE_COLORS,
@@ -291,9 +304,7 @@ Plot.plot({
 })
 ```
 
-<div class="fignote">Cumulative singles titles at the four majors. Drag the slider to reveal the race year by year; hover a line for the running total.</div>
-<div class="source">Source: Official ATP Tour, via Tennis Abstract &amp; TML-Database</div>
-</div>
+<div class="fignote">Cumulative singles titles at the four majors. Drag the slider to reveal the race year by year; hover a line for the running total.</div></div>
 
 <hr class="rule">
 
@@ -341,8 +352,6 @@ Plot.plot({
   ]
 })
 ```
-
-<div class="source">Source: Official ATP Tour, via Tennis Abstract &amp; TML-Database</div>
 </div>
 
 <hr class="rule">
@@ -352,44 +361,62 @@ Plot.plot({
 <div class="viz-head">
 <div class="kicker">3 · The Rivalries</div>
 
-## Settled on the final Sunday
+## Head-to-head on the final Sunday
 
-<div class="deck">Among the era's twelve greatest, who beat whom when a major was on the line. Each filled square is a final won — read across a row for a champion's victims, down a column for their conquerors.</div>
+<div class="deck">Pick a player to see their Grand Slam finals record against everyone they faced — wins to the right, losses to the left. Add a second player to zoom into a single rivalry, match by match.</div>
 </div>
 
 ```js
-const c3_names = topPlayers(champions, 12).map((d) => d.player);
-const c3_focus = view(Inputs.select(["— none —", ...c3_names], {label: "Spotlight a player", value: "— none —"}));
+const c3_finalists = finalsAppearances(champions).filter((d) => d.finals >= 2).map((d) => d.player);
+const c3_p1 = view(Inputs.select(c3_finalists, {label: "Player", value: "Novak Djokovic"}));
 ```
 ```js
-const c3_set = new Set(c3_names);
-const c3_cells = finalsMatrix(champions)
-  .filter((c) => c3_set.has(c.winner) && c3_set.has(c.loser))
-  .map((c) => ({...c, lit: c3_focus === "— none —" ? true : c.winner === c3_focus || c.loser === c3_focus}));
+const c3_record = finalsRecord(champions, c3_p1);
+const c3_p2 = view(Inputs.select(["— any opponent —", ...c3_record.map((r) => r.opponent)], {label: "vs", value: "— any opponent —"}));
 ```
 ```js
-Plot.plot({
-  ...base,
-  width,
-  height: 520,
-  marginLeft: 118,
-  marginTop: 40,
-  marginBottom: 90,
-  x: {domain: c3_names, label: "Runner-up ↓", labelAnchor: "left", tickRotate: -38},
-  y: {domain: c3_names, label: "Champion"},
-  color: {scheme: "reds", legend: true, label: "Finals won", domain: [0, d3.max(c3_cells, (d) => d.count)]},
-  marks: [
-    Plot.cell(c3_cells, {x: "loser", y: "winner", fill: "count", fillOpacity: (d) => d.lit ? 1 : 0.1,
-      inset: 0.5, tip: true, channels: {champion: "winner", "lost by": "loser", finals: "count"}}),
-    Plot.text(c3_cells, {x: "loser", y: "winner", text: (d) => d.count, fill: (d) => d.count > 2 ? "#fff" : INK,
-      fillOpacity: (d) => d.lit ? 1 : 0.25, fontWeight: 600, fontSize: 11})
-  ]
-})
+const c3_isPair = c3_p2 !== "— any opponent —";
+const c3_p1color = TOP_NAMES.includes(c3_p1) ? colorForPlayer(TOP_NAMES, c3_p1) : "#1A4E8A";
+const c3_pairFinals = c3_isPair ? finalsBetween(champions, c3_p1, c3_p2) : [];
+const c3_p1wins = c3_pairFinals.filter((f) => f.winner === c3_p1).length;
+```
+```js
+function c3_grid(record, color, width) {
+  const rows = record.slice(0, 14);
+  const maxv = Math.max(1, d3.max(rows, (r) => Math.max(r.wins, r.losses)));
+  return Plot.plot({
+    ...base, width, height: Math.max(200, rows.length * 34 + 64),
+    marginLeft: 132, marginRight: 44, marginTop: 36, marginBottom: 16,
+    x: {domain: [-maxv - 0.4, maxv + 0.4], label: null, ticks: []},
+    y: {domain: rows.map((r) => r.opponent), label: null},
+    marks: [
+      Plot.barX(rows, {x: (d) => -d.losses, y: "opponent", fill: "#ccc7bd", insetTop: 7, insetBottom: 7}),
+      Plot.barX(rows, {x: "wins", y: "opponent", fill: color, insetTop: 7, insetBottom: 7}),
+      Plot.text(rows, {x: (d) => -d.losses, y: "opponent", text: (d) => d.losses || "", dx: -6, textAnchor: "end", fill: MUTED, fontWeight: 600, fontSize: 11.5}),
+      Plot.text(rows, {x: "wins", y: "opponent", text: (d) => d.wins || "", dx: 6, textAnchor: "start", fill: color, fontWeight: 700, fontSize: 11.5}),
+      Plot.ruleX([0], {stroke: INK}),
+      Plot.text([{}], {frameAnchor: "top", text: ["← lost to        ·        beat →"], dy: -18, fill: MUTED, fontSize: 11.5, fontWeight: 600})
+    ]
+  });
+}
+function c3_panel(finals, a, b, aWins) {
+  const bWins = finals.length - aWins;
+  return html`<figure class="h2h">
+    <div class="h2h-score"><span>${a}</span><strong>${aWins}&ndash;${bWins}</strong><span>${b}</span></div>
+    ${finals.length === 0
+      ? html`<p class="h2h-empty">These two never met in a Grand Slam final.</p>`
+      : html`<table class="h2h-table">
+          <thead><tr><th>Year</th><th>Tournament</th><th>Winner</th><th>Score</th></tr></thead>
+          <tbody>${finals.map((f) => html`<tr><td>${f.year}</td><td>${f.slam}</td><td class="h2h-win">${f.winner}</td><td>${f.score}</td></tr>`)}</tbody>
+        </table>`}
+  </figure>`;
+}
+```
+```js
+c3_isPair ? c3_panel(c3_pairFinals, c3_p1, c3_p2, c3_p1wins) : c3_grid(c3_record, c3_p1color, width)
 ```
 
-<div class="fignote">Finals meetings only — not full career head-to-head. The diagonal is blank: no one contests a final with themselves.</div>
-<div class="source">Source: Official ATP Tour, via Tennis Abstract &amp; TML-Database</div>
-</div>
+<div class="fignote">Grand Slam finals only — not full career head-to-head. Players with at least two final appearances are listed.</div></div>
 
 <hr class="rule">
 
@@ -433,9 +460,7 @@ Plot.plot({
 })
 ```
 
-<div class="fignote">Top eight nations shown individually; all others pooled as “Other”. Bands are stacked, so total height is the running count of all majors played.</div>
-<div class="source">Source: Official ATP Tour, via Tennis Abstract &amp; TML-Database</div>
-</div>
+<div class="fignote">Top eight nations shown individually; all others pooled as “Other”. Bands are stacked, so total height is the running count of all majors played.</div></div>
 
 <hr class="rule">
 
@@ -486,9 +511,7 @@ Plot.plot({
 })
 ```
 
-<div class="fignote">Colour marks the ten all-time leaders; lighter cells are everyone else. Some Australian Open years are missing from the early Open era.</div>
-<div class="source">Source: Official ATP Tour, via Tennis Abstract &amp; TML-Database</div>
-</div>
+<div class="fignote">Colour marks the ten all-time leaders; lighter cells are everyone else. Some Australian Open years are missing from the early Open era.</div></div>
 
 <hr class="rule">
 

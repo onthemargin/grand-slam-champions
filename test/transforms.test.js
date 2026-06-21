@@ -6,6 +6,9 @@ import {
   titlesByPlayerSlam,
   finalsMatrix,
   cumulativeByCountry,
+  finalsAppearances,
+  finalsRecord,
+  finalsBetween,
 } from "../src/lib/transforms.js";
 
 const champs = [
@@ -52,6 +55,27 @@ test("finalsMatrix records head-to-head wins from finals", () => {
   const medOverDj = m.find((c) => c.winner === "Medvedev" && c.loser === "Djokovic");
   assert.equal(djOverMed.count, 1);
   assert.equal(medOverDj.count, 1);
+});
+
+test("finalsAppearances counts champion and runner-up finals", () => {
+  const a = finalsAppearances(champs);
+  assert.equal(a.find((x) => x.player === "Djokovic").finals, 4); // 3 won + 1 lost
+  assert.equal(a.find((x) => x.player === "Medvedev").finals, 3); // 1 won + 2 lost
+});
+
+test("finalsRecord aggregates a player's wins/losses by opponent", () => {
+  const r = finalsRecord(champs, "Djokovic");
+  const med = r.find((x) => x.opponent === "Medvedev");
+  assert.equal(med.wins, 1);
+  assert.equal(med.losses, 1);
+  assert.equal(r.find((x) => x.opponent === "Tsitsipas").wins, 1);
+  assert.equal(r[0].opponent, "Medvedev"); // most meetings sorts first
+});
+
+test("finalsBetween returns both meetings sorted by year", () => {
+  const f = finalsBetween(champs, "Djokovic", "Medvedev");
+  assert.equal(f.length, 2);
+  assert.deepEqual(f.map((x) => x.winner).sort(), ["Djokovic", "Medvedev"]);
 });
 
 test("cumulativeByCountry accumulates titles by country over years", () => {
