@@ -229,21 +229,7 @@ resize((w, h) => renderRace(w, h, scrollyStep))
 const c1_slam = view(Inputs.select(["All", ...meta.slams], {label: "Tournament", value: "All"}));
 ```
 ```js
-const c1_animate = view(Inputs.toggle({label: "Animate", value: false}));
-```
-```js
-const c1_yearGen = (async function* () {
-  if (c1_animate) {
-    for (let y = minYear; y <= maxYear; y++) { yield y; await new Promise((r) => setTimeout(r, 180)); }
-  }
-  yield maxYear;
-})();
-```
-```js
-const c1_slider = view(Inputs.range([minYear, maxYear], {step: 1, value: maxYear, label: "Reveal through year", format: (d) => `${d | 0}`}));
-```
-```js
-const c1_year = c1_animate ? c1_yearGen : c1_slider;
+const c1_year = view(Inputs.range([minYear, maxYear], {step: 1, value: maxYear, label: "Reveal through year", format: (d) => `${d | 0}`}));
 ```
 ```js
 const c1_series = cumulativeByYear(champions, TOP_NAMES, {slam: c1_slam});
@@ -298,12 +284,14 @@ Plot.plot({
       fill: "player", dx: 8, textAnchor: "start", fontWeight: 600, fontSize: 11.5}),
     ...c1_annoMarks,
     Plot.tip(c1_visible, Plot.pointer({x: "year", y: "titles", stroke: "player",
-      channels: {player: "player"}, format: {z: false}}))
+      channels: {player: "player"},
+      format: {player: true, x: (d) => `Through ${d | 0}`, y: (d) => `${d} Slam title${d === 1 ? "" : "s"}`,
+        stroke: false, z: false}}))
   ]
 })
 ```
 
-<div class="fignote">Cumulative singles titles at the four majors. Use the slider to scrub through time, or hit <em>Animate</em> to watch the race unfold.</div>
+<div class="fignote">Cumulative singles titles at the four majors. Drag the slider to reveal the race year by year; hover a line for the running total.</div>
 <div class="source">Source: Official ATP Tour, via Tennis Abstract &amp; TML-Database</div>
 </div>
 
