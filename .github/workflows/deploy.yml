@@ -24,7 +24,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm test
       - run: npm run build
+      - name: Copy social preview image into the site
+        run: cp assets/og-image.png dist/og-image.png
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

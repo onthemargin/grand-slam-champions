@@ -60,6 +60,16 @@ hr.rule { border:none; border-top:1px solid var(--faint); margin:0; }
 .h2h-table td { padding:.45rem .6rem; border-bottom:1px solid var(--faint); color:var(--soft); }
 .h2h-table td.h2h-win { font-weight:700; color:var(--ink); }
 .h2h-empty { text-align:center; color:var(--muted); font:400 15px Georgia,serif; padding:1.4rem; }
+/* small-screen gate — this dense, wide layout is desktop/tablet only */
+.mobile-gate { display:none; }
+@media (max-width: 720px) {
+  .editorial { display:none !important; }
+  .mobile-gate { display:flex; flex-direction:column; align-items:center; justify-content:center;
+    min-height:80vh; text-align:center; padding:2rem 1.5rem; gap:.8rem; }
+  .mobile-gate .mg-icon { font-size:3rem; }
+  .mobile-gate h1 { font-family:Georgia,serif; font-size:1.6rem; color:var(--ink); margin:0; }
+  .mobile-gate p { font:400 16px/1.5 Georgia,serif; color:var(--soft); max-width:32ch; margin:0; }
+}
 </style>
 
 ```js
@@ -82,6 +92,12 @@ const TOP_NAMES = TOP.map((d) => d.player);
 const pScale = playerScale(TOP_NAMES);
 const lastName = (n) => n.split(" ").pop();
 ```
+
+<div class="mobile-gate">
+<div class="mg-icon">🎾</div>
+<h1>Kings of the Majors</h1>
+<p>This visual story is built for a wider screen. Please open it on a desktop or tablet.</p>
+</div>
 
 <div class="editorial">
 

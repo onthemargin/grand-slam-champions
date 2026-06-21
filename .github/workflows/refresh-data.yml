@@ -1,0 +1,37 @@
+name: Refresh data
+
+# Re-fetch the champions data weekly. If the upstream source has new results,
+# commit them — which triggers the Deploy workflow and updates the site.
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run fetch
+      - name: Commit if the champions data changed
+        run: |
+          # Only commit when actual results change — ignore the meta.json
+          # timestamp on its own, so "Updated" reflects real data freshness.
+          if [[ -n "$(git status --porcelain data/atp/champions.csv)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/atp
+            git commit -m "chore: weekly data refresh"
+            git push
+            echo "Committed refreshed data."
+          else
+            echo "No new results; nothing to commit."
+          fi
