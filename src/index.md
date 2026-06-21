@@ -37,6 +37,17 @@ hr.rule { border:none; border-top:1px solid var(--faint); margin:0; }
 .attrib { font: 400 13.5px/1.6 Georgia,serif; color:var(--muted); max-width:70ch;
   margin:2.4rem 0 1rem; }
 .attrib a { color:var(--soft); }
+/* scrollytelling */
+.scrolly { position:relative; margin:1rem 0 1.5rem; }
+.scrolly-graphic { position:sticky; top:6vh; height:82vh; }
+.scrolly-steps { position:relative; margin-top:-82vh; pointer-events:none; }
+.scrolly-steps .step { min-height:88vh; display:flex; align-items:center; }
+.step-card { pointer-events:auto; max-width:340px; margin-left:auto;
+  background:rgba(255,255,255,.94); border-left:3px solid var(--accent);
+  padding:.85rem 1.1rem; box-shadow:0 2px 16px rgba(0,0,0,.09); border-radius:2px;
+  font:400 17px/1.5 Georgia,serif; color:var(--soft); }
+.step-card strong { color:var(--ink); font-weight:700; }
+.step-card p { margin:0; }
 </style>
 
 ```js
@@ -70,6 +81,135 @@ const lastName = (n) => n.split(" ").pop();
 
 <div class="dataline">
 ${meta.championCount} champions · ${meta.years.from}–${meta.years.to} · <span style="color:var(--accent)">Updated ${new Date(meta.fetchedAt).toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"})}</span>
+</div>
+</div>
+
+<hr class="rule">
+
+<!-- ====================== SCROLLYTELLING INTRO ====================== -->
+<div class="viz-head" style="margin-bottom:0">
+<div class="kicker">The Story</div>
+
+## Fifty-eight years in one race
+
+<div class="deck">Scroll to watch career Grand Slam titles stack up, era by era.</div>
+</div>
+
+```js
+const RACE_FULL = cumulativeByYear(champions, TOP_NAMES);
+const SCENES = [
+  {through: 1990, focus: ["Borg", "Connors", "McEnroe", "Lendl"], anno: {year: 1981, titles: 11, text: "Borg — 11, then retires"}},
+  {through: 2002, focus: ["Sampras"], anno: {year: 2002, titles: 14, text: "Sampras: 14"}},
+  {through: 2010, focus: ["Federer"], anno: {year: 2009, titles: 15, text: "Federer passes Sampras"}},
+  {through: 2017, focus: ["Federer", "Nadal", "Djokovic"], anno: {year: 2017, titles: 16, text: "A three-way race"}},
+  {through: 2026, focus: ["Djokovic", "Nadal", "Federer"], anno: {year: 2023, titles: 24, text: "Djokovic: 24"}},
+  {through: 2026, focus: ["Alcaraz"], anno: {year: 2026, titles: 7, text: "Alcaraz — 7 by age 22"}}
+];
+```
+```js
+const scrollyStep = Generators.observe((notify) => {
+  let current = 0;
+  notify(0);
+  const steps = [...document.querySelectorAll(".scrolly .step")];
+  if (!steps.length) return () => {};
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          const n = Number(e.target.dataset.step);
+          if (n !== current) { current = n; notify(n); }
+        }
+      }
+    },
+    {rootMargin: "-45% 0px -45% 0px"}
+  );
+  steps.forEach((el) => io.observe(el));
+  return () => io.disconnect();
+});
+```
+```js
+function renderRace(width, height, step) {
+  const s = SCENES[Math.max(0, Math.min(step, SCENES.length - 1))];
+  // Scenes name players by surname; resolve to the full names used in the data.
+  const focus = new Set(s.focus.map((f) => TOP_NAMES.find((n) => lastName(n) === f) || f));
+  const vis = RACE_FULL.filter((d) => d.year <= s.through);
+  const bg = vis.filter((d) => !focus.has(d.player));
+  const fg = vis.filter((d) => focus.has(d.player));
+  const ends = TOP_NAMES.filter((p) => focus.has(p))
+    .map((p) => fg.filter((d) => d.player === p).at(-1))
+    .filter((d) => d && d.titles > 0)
+    .map((d) => ({...d}))
+    .sort((x, y) => y.titles - x.titles);
+  let prev = Infinity; // dodge tied/near labels apart on the y axis
+  for (const e of ends) { e.ly = Math.min(e.titles, prev - 25 / 20); prev = e.ly; }
+  const a = s.anno;
+  const rightSide = a.year > 2014;
+  return Plot.plot({
+    ...base,
+    width,
+    height: Math.max(340, height - 8),
+    marginTop: 20,
+    marginRight: 150,
+    marginLeft: 44,
+    x: {label: null, tickFormat: "d", domain: [minYear, maxYear], ticks: 7},
+    y: {domain: [0, 25], grid: true, label: "↑ Career Slam titles", ticks: 6},
+    color: {domain: pScale.domain, range: pScale.range},
+    marks: [
+      Plot.ruleY([0], {stroke: FAINT}),
+      Plot.line(bg, {x: "year", y: "titles", z: "player", stroke: "#dad6ce", strokeWidth: 1.2, curve: "monotone-x"}),
+      Plot.line(fg, {x: "year", y: "titles", z: "player", stroke: "player", strokeWidth: 2.8, curve: "monotone-x"}),
+      Plot.dot(ends, {x: "year", y: "titles", fill: "player", r: 3.4}),
+      Plot.link(ends, {x1: "year", y1: "titles", x2: "year", y2: "ly", stroke: "player", strokeWidth: 0.6, strokeOpacity: 0.5}),
+      Plot.text(ends, {x: "year", y: "ly", text: (d) => `${lastName(d.player)}  ${d.titles}`,
+        fill: "player", dx: 8, textAnchor: "start", fontWeight: 600, fontSize: 11.5}),
+      Plot.dot([a], {x: "year", y: "titles", r: 4, fill: INK, stroke: "white", strokeWidth: 1.5}),
+      Plot.text([a], {x: "year", y: "titles", text: "text", dy: -14, dx: rightSide ? -8 : 8,
+        textAnchor: rightSide ? "end" : "start", fontStyle: "italic", fontWeight: 600, fontSize: 13,
+        fill: INK, lineWidth: 13, stroke: "white", strokeWidth: 3.5, paintOrder: "stroke"})
+    ]
+  });
+}
+```
+
+<div class="scrolly">
+<div class="scrolly-graphic">
+
+```js
+resize((w, h) => renderRace(w, h, scrollyStep))
+```
+
+</div>
+<div class="scrolly-steps">
+<div class="step" data-step="0"><div class="step-card">
+
+**The long status quo.** For two decades the leaders rose together. Björn Borg walked away at 26 with 11 majors — and no one passed him for years.
+
+</div></div>
+<div class="step" data-step="1"><div class="step-card">
+
+**Sampras raises the bar.** Through the 1990s, Pete Sampras pushed the modern record to **14** — a number that looked untouchable.
+
+</div></div>
+<div class="step" data-step="2"><div class="step-card">
+
+**Federer changes the scale.** From 2003, Roger Federer didn't just catch Sampras — he blew past him, redrawing what greatness meant.
+
+</div></div>
+<div class="step" data-step="3"><div class="step-card">
+
+**A three-way race.** Rafael Nadal and Novak Djokovic refused to let Federer run away. The Big Three pulled clear of everyone in history.
+
+</div></div>
+<div class="step" data-step="4"><div class="step-card">
+
+**Djokovic on top.** When the dust settled, Djokovic stood alone at **24** — the most major titles any man has won.
+
+</div></div>
+<div class="step" data-step="5"><div class="step-card">
+
+**The next chase.** It has already begun. By age 22, Carlos Alcaraz has **7** — and has climbed into the all-time top ten.
+
+</div></div>
 </div>
 </div>
 
@@ -123,6 +263,20 @@ const c1_ends = (() => {
   }
   return ends;
 })();
+// Editorial callouts — only meaningful for the full all-Slam timeline.
+const C1_ANNOTATIONS = [
+  {year: 1981, titles: 11, text: "Borg walks away at 26", dx: 8, dy: -12, anchor: "start"},
+  {year: 2002, titles: 14, text: "Sampras: 14, the mark to beat", dx: 6, dy: 22, anchor: "start"},
+  {year: 2009, titles: 15, text: "Federer passes Sampras", dx: -8, dy: -14, anchor: "end"}
+];
+const c1_annos = c1_slam === "All" ? C1_ANNOTATIONS.filter((a) => a.year <= c1_year) : [];
+const c1_annoMarks = [
+  Plot.dot(c1_annos, {x: "year", y: "titles", r: 3.2, fill: INK, stroke: "white", strokeWidth: 1}),
+  ...c1_annos.map((a) =>
+    Plot.text([a], {x: "year", y: "titles", text: "text", dx: a.dx, dy: a.dy, textAnchor: a.anchor,
+      fontStyle: "italic", fontWeight: 500, fontSize: 11.5, fill: INK,
+      lineWidth: 12, stroke: "white", strokeWidth: 3, paintOrder: "stroke"}))
+];
 ```
 ```js
 Plot.plot({
@@ -142,6 +296,7 @@ Plot.plot({
     Plot.link(c1_ends, {x1: "year", y1: "titles", x2: "year", y2: "ly", stroke: "player", strokeWidth: 0.6, strokeOpacity: 0.5}),
     Plot.text(c1_ends, {x: "year", y: "ly", text: (d) => `${lastName(d.player)}  ${d.titles}`,
       fill: "player", dx: 8, textAnchor: "start", fontWeight: 600, fontSize: 11.5}),
+    ...c1_annoMarks,
     Plot.tip(c1_visible, Plot.pointer({x: "year", y: "titles", stroke: "player",
       channels: {player: "player"}, format: {z: false}}))
   ]
