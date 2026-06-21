@@ -9,6 +9,7 @@ import {
   finalsAppearances,
   finalsRecord,
   finalsBetween,
+  parseScore,
 } from "../src/lib/transforms.js";
 
 const champs = [
@@ -76,6 +77,16 @@ test("finalsBetween returns both meetings sorted by year", () => {
   const f = finalsBetween(champs, "Djokovic", "Medvedev");
   assert.equal(f.length, 2);
   assert.deepEqual(f.map((x) => x.winner).sort(), ["Djokovic", "Medvedev"]);
+});
+
+test("parseScore classifies sets, tiebreaks and retirements", () => {
+  assert.deepEqual(parseScore("6-3 7-6(4) 6-3"), {sets: 3, tiebreaks: 1, retired: false, category: "straight"});
+  assert.deepEqual(parseScore("2-6 6-2 6-3 7-5"), {sets: 4, tiebreaks: 0, retired: false, category: "four"});
+  assert.deepEqual(parseScore("4-6 6-7(4) 6-4 7-6(3) 7-6(2)"), {sets: 5, tiebreaks: 3, retired: false, category: "five"});
+  assert.equal(parseScore("14-12 5-7 6-3 3-6 6-3").category, "five");
+  const ret = parseScore("5-0 RET");
+  assert.equal(ret.retired, true);
+  assert.equal(ret.category, "retired");
 });
 
 test("cumulativeByCountry accumulates titles by country over years", () => {

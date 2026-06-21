@@ -65,8 +65,8 @@ hr.rule { border:none; border-top:1px solid var(--faint); margin:0; }
 ```js
 import {
   topPlayers, cumulativeByYear, titlesByPlayerSlam, titlesByPlayerSurface,
-  finalsAppearances, finalsRecord, finalsBetween,
-  titlesByCountry, cumulativeByCountry, yearExtent
+  finalsAppearances, finalsRecord, finalsBetween, parseScore,
+  yearExtent
 } from "./lib/transforms.js";
 import {
   INK, MUTED, FAINT, ACCENT, PLAYER_COLORS, SLAM_COLORS, SURFACE_COLORS,
@@ -423,44 +423,50 @@ c3_isPair ? c3_panel(c3_pairFinals, c3_p1, c3_p2, c3_p1wins) : c3_grid(c3_record
 <!-- ============================ CHART 4 ============================ -->
 <div class="viz">
 <div class="viz-head">
-<div class="kicker">4 · The Geopolitics</div>
+<div class="kicker">4 · The Drama</div>
 
-## A changing of the guard, nation by nation
+## How the finals were won
 
-<div class="deck">Grand Slam titles accumulated by country. The slopes tell the story — Australia's early command, an American surge, and the long Western-European ascendancy that followed.</div>
+<div class="deck">Every Grand Slam final, placed by how far it went — a straight-sets statement, a four-set grind, or a five-set epic. The red dots along the top are the classics that went the distance.</div>
 </div>
 
 ```js
-const c4_topCountries = titlesByCountry(champions).slice(0, 8).map((d) => d.country);
-const c4_set = new Set(c4_topCountries);
-const c4_champs = champions.map((c) => (c4_set.has(c.champion_ioc) ? c : {...c, champion_ioc: "Other"}));
-const c4_countries = [...c4_topCountries, "Other"];
-const c4_data = cumulativeByCountry(c4_champs, {countries: c4_countries});
-const c4_pal = d3.schemeTableau10;
+const C4_LABEL = {five: "Five sets", four: "Four sets", straight: "Straight sets", retired: "Unfinished"};
+const C4_COLOR = {"Five sets": "#C0392B", "Four sets": "#D98324", "Straight sets": "#7C9AB0", "Unfinished": "#b3ada3"};
+const C4_SLAM_DX = {"Australian Open": -0.30, "Roland Garros": -0.10, "Wimbledon": 0.10, "US Open": 0.30};
+const c4_all = champions.map((c) => {
+  const p = parseScore(c.score);
+  return {...c, ...p, dramaLabel: C4_LABEL[p.category]};
+});
 ```
 ```js
-const c4_focus = view(Inputs.select(["— all —", ...c4_topCountries], {label: "Spotlight a country", value: "— all —"}));
+const c4_slam = view(Inputs.select(["All", ...meta.slams], {label: "Tournament", value: "All"}));
+```
+```js
+const c4_rows = (c4_slam === "All" ? c4_all : c4_all.filter((d) => d.slam === c4_slam))
+  .map((d) => ({...d, xj: d.year + (c4_slam === "All" ? (C4_SLAM_DX[d.slam] || 0) : 0)}));
+const c4_fives = c4_rows.filter((d) => d.category === "five").length;
 ```
 ```js
 Plot.plot({
   ...base,
   width,
-  height: 460,
-  marginLeft: 44,
-  marginRight: 56,
-  x: {label: null, tickFormat: "d", ticks: 7},
-  y: {label: "↑ Cumulative Slam titles", grid: true},
-  color: {domain: c4_countries, range: [...c4_pal.slice(0, 8), "#cfcabf"], legend: true},
+  height: 380,
+  marginLeft: 98,
+  marginTop: 30,
+  marginRight: 20,
+  x: {label: null, tickFormat: "d", domain: [minYear - 1, maxYear + 1], ticks: 7},
+  y: {domain: ["Five sets", "Four sets", "Straight sets", "Unfinished"], label: null},
+  color: {domain: Object.keys(C4_COLOR), range: Object.values(C4_COLOR), legend: true, label: "How the final went"},
   marks: [
-    Plot.areaY(c4_data, {x: "year", y: "titles", z: "country", fill: "country",
-      order: c4_countries, fillOpacity: (d) => c4_focus === "— all —" ? 0.92 : (d.country === c4_focus ? 1 : 0.16),
-      tip: true}),
-    Plot.ruleY([0], {stroke: INK, strokeWidth: 1})
+    Plot.dot(c4_rows, {x: "xj", y: "dramaLabel", fill: "dramaLabel", r: 4.4, fillOpacity: 0.9,
+      stroke: (d) => d.tiebreaks > 0 ? "#1a1a1a" : "white", strokeWidth: (d) => d.tiebreaks > 0 ? 0.9 : 0.6,
+      tip: true, channels: {champion: "champion", runnerUp: "runner_up", slam: "slam", year: "year", score: "score", tiebreaks: "tiebreaks"}})
   ]
 })
 ```
 
-<div class="fignote">Top eight nations shown individually; all others pooled as “Other”. Bands are stacked, so total height is the running count of all majors played.</div></div>
+<div class="fignote">Each dot is one men's Grand Slam final, placed by the number of sets the champion needed. Dots ringed in black had at least one tiebreak. ${c4_fives} of these finals went the full five sets.</div></div>
 
 <hr class="rule">
 
