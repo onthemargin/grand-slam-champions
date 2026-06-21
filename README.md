@@ -1,10 +1,10 @@
-# observable-dataviz-test
+# grand-slam-champions
 
 An interactive look at **ATP men's Grand Slam champions** (Open era, 1968–present),
 built with [Observable Framework](https://observablehq.com/framework/) and hosted
 on GitHub Pages.
 
-**Live site:** https://onthemargin.github.io/observable-dataviz-test/
+**Live site:** https://onthemargin.github.io/grand-slam-champions/
 
 ## Data & attribution
 
@@ -41,4 +41,4 @@ npm run build    # build static site to dist/
 
 Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds the site
 and publishes `dist/` to GitHub Pages. The site is served under
-`/observable-dataviz-test/` (set via `base` in `observablehq.config.js`).
+`/grand-slam-champions/` (set via `base` in `observablehq.config.js`).

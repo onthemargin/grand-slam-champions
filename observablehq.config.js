@@ -4,7 +4,7 @@ export default {
 
   // GitHub Pages serves project sites under /<repo>/, so set the base path.
   // Change this if you rename the repo.
-  base: "/observable-dataviz-test/",
+  base: "/grand-slam-champions/",
 
   // Single-page site for now.
   pages: [],
