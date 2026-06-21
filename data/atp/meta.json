@@ -3,6 +3,7 @@
   "title": "ATP Grand Slam champions",
   "license": "Educational / non-commercial use only",
   "attribution": "Match results from the official ATP Tour, compiled by Tennis Abstract (Jeff Sackmann) and Tennismylife (TML-Database). Educational, non-commercial use only.",
+  "note": "The current season's majors are added from official results, as the upstream CSV database lags the live tour.",
   "sources": [
     {
       "name": "ATP Tour",
@@ -15,9 +16,13 @@
     {
       "name": "Tennismylife / TML-Database",
       "url": "https://github.com/Tennismylife/TML-Database"
+    },
+    {
+      "name": "Wikipedia (current-season majors)",
+      "url": "https://en.wikipedia.org/wiki/Grand_Slam_(tennis)"
     }
   ],
-  "fetchedAt": "2026-06-21T17:22:55.547Z",
+  "fetchedAt": "2026-06-21T18:25:47.098Z",
   "years": {
     "from": 1968,
     "to": 2026
@@ -28,5 +33,6 @@
     "US Open",
     "Wimbledon"
   ],
-  "championCount": 231
+  "championCount": 233,
+  "manualAdditions": 2
 }

@@ -8,7 +8,7 @@
 // timestamped meta.json. The bulky match data is never committed — only the
 // ~230-row winners file. Re-run after each Slam to refresh.
 
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, writeFile, readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { extractChampions } from "./lib/champions.mjs";
@@ -57,6 +57,28 @@ function toCsv(rows) {
   return lines.join("\n") + "\n";
 }
 
+// Reads optional data/atp/manual-additions.csv (same column layout as the
+// output) for majors not yet in the upstream source. Returns [] if absent.
+async function loadManual() {
+  let text;
+  try {
+    text = await readFile(join(OUT_DIR, "manual-additions.csv"), "utf8");
+  } catch {
+    return [];
+  }
+  const lines = text.split("\n").map((l) => l.trim()).filter(Boolean);
+  if (lines.length < 2) return [];
+  const head = lines[0].split(",");
+  return lines.slice(1).map((line) => {
+    const cells = line.split(",");
+    const o = {};
+    head.forEach((h, i) => (o[h] = cells[i]));
+    o.year = Number(o.year);
+    o.age = o.age === "" || o.age == null ? "" : Number(o.age);
+    return o;
+  });
+}
+
 async function main() {
   await mkdir(OUT_DIR, { recursive: true });
   console.log(`Listing available years from ${REPO}...`);
@@ -71,10 +93,27 @@ async function main() {
     console.log(`  processed ${Math.min(i + CONCURRENCY, years.length)}/${years.length} years`);
   }
 
+  // The upstream CSV lags the live season, so merge in any hand-curated recent
+  // majors it is still missing (matched on year + slam, never overwriting).
+  const manual = await loadManual();
+  const seen = new Set(all.map((c) => `${c.year}|${c.slam}`));
+  let added = 0;
+  for (const m of manual) {
+    const k = `${m.year}|${m.slam}`;
+    if (!seen.has(k)) { all.push(m); seen.add(k); added++; }
+  }
+
   all.sort((a, b) => String(a.date).localeCompare(String(b.date)));
   await writeFile(join(OUT_DIR, "champions.csv"), toCsv(all));
 
   const slams = [...new Set(all.map((c) => c.slam))].sort();
+  const lastYear = all.reduce((m, c) => Math.max(m, c.year), years[0]);
+  const sources = [
+    { name: "ATP Tour", url: "https://www.atptour.com/" },
+    { name: "Tennis Abstract (Jeff Sackmann)", url: "https://github.com/JeffSackmann" },
+    { name: "Tennismylife / TML-Database", url: `https://github.com/${REPO}` },
+  ];
+  if (added > 0) sources.push({ name: "Wikipedia (current-season majors)", url: "https://en.wikipedia.org/wiki/Grand_Slam_(tennis)" });
   const meta = {
     tour: "ATP",
     title: "ATP Grand Slam champions",
@@ -83,21 +122,22 @@ async function main() {
       "Match results from the official ATP Tour, compiled by Tennis Abstract " +
       "(Jeff Sackmann) and Tennismylife (TML-Database). Educational, " +
       "non-commercial use only.",
-    sources: [
-      { name: "ATP Tour", url: "https://www.atptour.com/" },
-      { name: "Tennis Abstract (Jeff Sackmann)", url: "https://github.com/JeffSackmann" },
-      { name: "Tennismylife / TML-Database", url: `https://github.com/${REPO}` },
-    ],
+    note: added > 0
+      ? "The current season's majors are added from official results, as the " +
+        "upstream CSV database lags the live tour."
+      : undefined,
+    sources,
     fetchedAt: new Date().toISOString(),
-    years: { from: years[0], to: years.at(-1) },
+    years: { from: years[0], to: lastYear },
     slams,
     championCount: all.length,
+    manualAdditions: added,
   };
   await writeFile(join(OUT_DIR, "meta.json"), JSON.stringify(meta, null, 2) + "\n");
 
   console.log(
-    `\nDone. ${all.length} Grand Slam champions ${years[0]}–${years.at(-1)} ` +
-      `across ${slams.length} events.`
+    `\nDone. ${all.length} Grand Slam champions ${years[0]}–${lastYear} ` +
+      `across ${slams.length} events (${added} added from manual-additions.csv).`
   );
   console.log(`Wrote ${OUT_DIR}/champions.csv and meta.json (fetchedAt ${meta.fetchedAt}).`);
 }

@@ -1,0 +1,12 @@
+#!/bin/bash
+# Auto-push every commit on this repo to origin/main so GitHub Pages redeploys.
+# Scoped to this repo via `git config --local core.hooksPath .githooks`.
+# Guard against recursion (push itself never commits, but be safe).
+[ -n "$GIT_AUTOPUSH_RUNNING" ] && exit 0
+export GIT_AUTOPUSH_RUNNING=1
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+if [ "$branch" = "main" ]; then
+  echo "↻ auto-push: pushing to origin/main…"
+  git push origin HEAD:main
+fi

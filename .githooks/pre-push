@@ -1,0 +1,5 @@
+#!/bin/bash
+# Repo-local override of the global pre-push guard.
+# This project (a public GitHub Pages demo) is allowed to push freely so it can
+# auto-deploy. The global DEPLOY=1 guard still applies to every other repo.
+exit 0

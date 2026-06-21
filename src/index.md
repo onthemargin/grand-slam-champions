@@ -349,10 +349,12 @@ Plot.plot({
 
 <hr class="rule">
 
-<div class="attrib">
-<strong>About this data.</strong> ${meta.attribution}
-Sources: ${meta.sources.map((s) => `<a href="${s.url}">${s.name}</a>`).join(" · ")}.
-License: ${meta.license}. Updated by re-running the project's fetch step after each major.
-</div>
+```js
+html`<div class="attrib">
+  <strong>About this data.</strong> ${meta.attribution}${meta.note ? " " + meta.note : ""}
+  Sources: ${meta.sources.map((s, i) => html`${i ? html` · ` : ""}<a href=${s.url} target="_blank" rel="noopener">${s.name}</a>`)}.
+  License: ${meta.license}. Updated by re-running the project's fetch step after each major.
+</div>`
+```
 
 </div>
