@@ -66,10 +66,10 @@ const lastName = (n) => n.split(" ").pop();
 
 # Kings of the Majors
 
-<div class="deck">Fifty-eight years of Grand Slam tennis, told through its champions — who won, who they beat, where they reigned, and how a sport once spread thin came to be ruled by a precious few.</div>
+<div class="deck">Every men's Grand Slam champion of the Open era — who won, who they beat, and where they reigned.</div>
 
 <div class="dataline">
-${meta.championCount} champions · ${meta.years.from}–${meta.years.to} · Australian Open · Roland Garros · Wimbledon · US Open · <span style="color:var(--accent)">Data as of ${new Date(meta.fetchedAt).toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"})}</span>
+${meta.championCount} champions · ${meta.years.from}–${meta.years.to} · <span style="color:var(--accent)">Updated ${new Date(meta.fetchedAt).toLocaleDateString("en-US",{year:"numeric",month:"long",day:"numeric"})}</span>
 </div>
 </div>
 

@@ -12,11 +12,9 @@ export default {
   toc: false,
   pager: false,
 
-  // Site-wide attribution required by the data source's terms.
-  footer:
-    'Data: official ATP Tour, compiled by Tennis Abstract (Jeff Sackmann) and ' +
-    '<a href="https://github.com/Tennismylife/TML-Database">TML-Database</a>. ' +
-    'Educational / non-commercial use only. Built with Observable Framework.',
+  // No site-wide footer — attribution lives in the in-page "About this data"
+  // block at the foot of the story, so there's a single footer.
+  footer: "",
 
   // The path to the source root.
   root: "src",
