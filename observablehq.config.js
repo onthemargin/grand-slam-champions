@@ -6,8 +6,11 @@ export default {
   // Change this if you rename the repo.
   base: "/grand-slam-champions/",
 
-  // Single-page site for now.
+  // Single-page site: everything lives on src/index.md, no nav chrome.
   pages: [],
+  sidebar: false,
+  toc: false,
+  pager: false,
 
   // Site-wide attribution required by the data source's terms.
   footer:
