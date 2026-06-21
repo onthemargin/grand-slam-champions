@@ -1,76 +1,32 @@
 {
   "tour": "ATP",
-  "source": "Tennismylife/TML-Database",
-  "sourceUrl": "https://github.com/Tennismylife/TML-Database",
-  "license": "CC BY-NC-SA 4.0 (Jeff Sackmann schema)",
-  "schema": "sackmann",
-  "fetchedAt": "2026-06-21T17:19:08.691Z",
+  "title": "ATP Grand Slam champions",
+  "license": "Educational / non-commercial use only",
+  "attribution": "Match results from the official ATP Tour, compiled by Tennis Abstract (Jeff Sackmann) and Tennismylife (TML-Database). Educational, non-commercial use only.",
+  "sources": [
+    {
+      "name": "ATP Tour",
+      "url": "https://www.atptour.com/"
+    },
+    {
+      "name": "Tennis Abstract (Jeff Sackmann)",
+      "url": "https://github.com/JeffSackmann"
+    },
+    {
+      "name": "Tennismylife / TML-Database",
+      "url": "https://github.com/Tennismylife/TML-Database"
+    }
+  ],
+  "fetchedAt": "2026-06-21T17:22:55.547Z",
   "years": {
     "from": 1968,
-    "to": 2026,
-    "count": 59
+    "to": 2026
   },
-  "totalMatches": 198063,
-  "totalBytes": 37449868,
-  "files": [
-    "1968.csv",
-    "1969.csv",
-    "1970.csv",
-    "1971.csv",
-    "1972.csv",
-    "1973.csv",
-    "1974.csv",
-    "1975.csv",
-    "1976.csv",
-    "1977.csv",
-    "1978.csv",
-    "1979.csv",
-    "1980.csv",
-    "1981.csv",
-    "1982.csv",
-    "1983.csv",
-    "1984.csv",
-    "1985.csv",
-    "1986.csv",
-    "1987.csv",
-    "1988.csv",
-    "1989.csv",
-    "1990.csv",
-    "1991.csv",
-    "1992.csv",
-    "1993.csv",
-    "1994.csv",
-    "1995.csv",
-    "1996.csv",
-    "1997.csv",
-    "1998.csv",
-    "1999.csv",
-    "2000.csv",
-    "2001.csv",
-    "2002.csv",
-    "2003.csv",
-    "2004.csv",
-    "2005.csv",
-    "2006.csv",
-    "2007.csv",
-    "2008.csv",
-    "2009.csv",
-    "2010.csv",
-    "2011.csv",
-    "2012.csv",
-    "2013.csv",
-    "2014.csv",
-    "2015.csv",
-    "2016.csv",
-    "2017.csv",
-    "2018.csv",
-    "2019.csv",
-    "2020.csv",
-    "2021.csv",
-    "2022.csv",
-    "2023.csv",
-    "2024.csv",
-    "2025.csv",
-    "2026.csv"
-  ]
+  "slams": [
+    "Australian Open",
+    "Roland Garros",
+    "US Open",
+    "Wimbledon"
+  ],
+  "championCount": 231
 }

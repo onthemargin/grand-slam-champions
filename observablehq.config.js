@@ -1,15 +1,19 @@
 // See https://observablehq.com/framework/config for documentation.
 export default {
-  title: "Observable Dataviz Test",
+  title: "ATP Grand Slam Champions",
 
   // GitHub Pages serves project sites under /<repo>/, so set the base path.
   // Change this if you rename the repo.
   base: "/observable-dataviz-test/",
 
-  // The pages and sections in the sidebar.
-  pages: [
-    { name: "Examples", path: "/example" },
-  ],
+  // Single-page site for now.
+  pages: [],
+
+  // Site-wide attribution required by the data source's terms.
+  footer:
+    'Data: official ATP Tour, compiled by Tennis Abstract (Jeff Sackmann) and ' +
+    '<a href="https://github.com/Tennismylife/TML-Database">TML-Database</a>. ' +
+    'Educational / non-commercial use only. Built with Observable Framework.',
 
   // The path to the source root.
   root: "src",

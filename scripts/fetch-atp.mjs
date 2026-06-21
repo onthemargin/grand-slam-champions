@@ -1,14 +1,17 @@
-// Downloads the full ATP (men's) match history from the Tennismylife/TML-Database
-// GitHub repo into data/atp/ and writes a timestamped meta.json.
+// Builds the ATP (men's) Grand Slam champions dataset from the
+// Tennismylife/TML-Database GitHub repo (Jeff Sackmann schema).
 //
 // Run:  npm run fetch
 //
-// Source data is in the Jeff Sackmann schema (winner_id, surface, tourney_level, ...).
-// Open-era coverage: 1968 to the current year. Re-run after each Slam to refresh.
+// Downloads each year's match file in memory, extracts Grand Slam finals
+// (the champions), and writes a single small data/atp/champions.csv plus a
+// timestamped meta.json. The bulky match data is never committed — only the
+// ~230-row winners file. Re-run after each Slam to refresh.
 
 import { mkdir, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { extractChampions } from "./lib/champions.mjs";
 
 const REPO = "Tennismylife/TML-Database";
 const BRANCH = "master";
@@ -19,42 +22,39 @@ const CONCURRENCY = 8;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = join(__dirname, "..", "data", "atp");
 
-// The current year is the last file the repo publishes. We probe forward from
-// FIRST_YEAR until a year 404s, so we never hard-code the end and always get
-// whatever the latest published season is.
+const COLUMNS = [
+  "year", "slam", "surface", "date", "champion", "champion_ioc",
+  "seed", "age", "runner_up", "runner_up_ioc", "score",
+];
+
 async function listYears() {
-  const years = [];
-  // Probe a generous upper bound; stop at the first missing recent year.
-  for (let y = FIRST_YEAR; y <= FIRST_YEAR + 200; y++) {
-    years.push(y);
-    if (y > 2026 + 1) break; // safety; the HEAD checks below decide what exists
-  }
-  // Filter to years that actually exist via cheap HEAD requests.
   const existing = [];
-  for (let i = 0; i < years.length; i += CONCURRENCY) {
-    const batch = years.slice(i, i + CONCURRENCY);
+  for (let y = FIRST_YEAR; y <= FIRST_YEAR + 200; y += CONCURRENCY) {
+    const batch = Array.from({ length: CONCURRENCY }, (_, k) => y + k);
     const results = await Promise.all(
-      batch.map(async (y) => {
-        const res = await fetch(RAW(`${y}.csv`), { method: "HEAD" });
-        return res.ok ? y : null;
-      })
+      batch.map(async (yr) => ((await fetch(RAW(`${yr}.csv`), { method: "HEAD" })).ok ? yr : null))
     );
-    const found = results.filter((y) => y !== null);
+    const found = results.filter((yr) => yr !== null);
     existing.push(...found);
-    // If a whole batch past 2000 came back empty, we've run off the end.
     if (found.length === 0 && batch[0] > 2000) break;
   }
   return existing.sort((a, b) => a - b);
 }
 
-async function downloadYear(year) {
+async function championsForYear(year) {
   const res = await fetch(RAW(`${year}.csv`));
   if (!res.ok) throw new Error(`${year}.csv -> HTTP ${res.status}`);
-  const text = await res.text();
-  await writeFile(join(OUT_DIR, `${year}.csv`), text);
-  // Row count = non-empty lines minus the header.
-  const lines = text.split("\n").filter((l) => l.trim().length > 0);
-  return { year, matches: Math.max(0, lines.length - 1), bytes: Buffer.byteLength(text) };
+  return extractChampions(await res.text());
+}
+
+function toCsv(rows) {
+  const esc = (v) => {
+    const s = String(v ?? "");
+    return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  };
+  const lines = [COLUMNS.join(",")];
+  for (const r of rows) lines.push(COLUMNS.map((c) => esc(r[c])).join(","));
+  return lines.join("\n") + "\n";
 }
 
 async function main() {
@@ -63,36 +63,43 @@ async function main() {
   const years = await listYears();
   console.log(`Found ${years.length} years: ${years[0]}–${years.at(-1)}`);
 
-  const stats = [];
+  const all = [];
   for (let i = 0; i < years.length; i += CONCURRENCY) {
     const batch = years.slice(i, i + CONCURRENCY);
-    const got = await Promise.all(batch.map(downloadYear));
-    stats.push(...got);
-    console.log(`  downloaded ${stats.length}/${years.length}`);
+    const got = await Promise.all(batch.map(championsForYear));
+    got.forEach((c) => all.push(...c));
+    console.log(`  processed ${Math.min(i + CONCURRENCY, years.length)}/${years.length} years`);
   }
 
-  const totalMatches = stats.reduce((s, x) => s + x.matches, 0);
-  const totalBytes = stats.reduce((s, x) => s + x.bytes, 0);
+  all.sort((a, b) => String(a.date).localeCompare(String(b.date)));
+  await writeFile(join(OUT_DIR, "champions.csv"), toCsv(all));
 
+  const slams = [...new Set(all.map((c) => c.slam))].sort();
   const meta = {
     tour: "ATP",
-    source: "Tennismylife/TML-Database",
-    sourceUrl: `https://github.com/${REPO}`,
-    license: "CC BY-NC-SA 4.0 (Jeff Sackmann schema)",
-    schema: "sackmann",
+    title: "ATP Grand Slam champions",
+    license: "Educational / non-commercial use only",
+    attribution:
+      "Match results from the official ATP Tour, compiled by Tennis Abstract " +
+      "(Jeff Sackmann) and Tennismylife (TML-Database). Educational, " +
+      "non-commercial use only.",
+    sources: [
+      { name: "ATP Tour", url: "https://www.atptour.com/" },
+      { name: "Tennis Abstract (Jeff Sackmann)", url: "https://github.com/JeffSackmann" },
+      { name: "Tennismylife / TML-Database", url: `https://github.com/${REPO}` },
+    ],
     fetchedAt: new Date().toISOString(),
-    years: { from: years[0], to: years.at(-1), count: years.length },
-    totalMatches,
-    totalBytes,
-    files: stats.map((s) => `${s.year}.csv`),
+    years: { from: years[0], to: years.at(-1) },
+    slams,
+    championCount: all.length,
   };
   await writeFile(join(OUT_DIR, "meta.json"), JSON.stringify(meta, null, 2) + "\n");
 
   console.log(
-    `\nDone. ${years.length} files, ${totalMatches.toLocaleString()} matches, ` +
-      `${(totalBytes / 1048576).toFixed(1)} MB.`
+    `\nDone. ${all.length} Grand Slam champions ${years[0]}–${years.at(-1)} ` +
+      `across ${slams.length} events.`
   );
-  console.log(`Wrote ${OUT_DIR}/<year>.csv and meta.json (fetchedAt ${meta.fetchedAt}).`);
+  console.log(`Wrote ${OUT_DIR}/champions.csv and meta.json (fetchedAt ${meta.fetchedAt}).`);
 }
 
 main().catch((err) => {

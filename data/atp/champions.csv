@@ -1,0 +1,232 @@
+year,slam,surface,date,champion,champion_ioc,seed,age,runner_up,runner_up_ioc,score
+1968,Australian Open,Grass,19680119,Bill Bowrey,AUS,1,24,Juan Gisbert Sr,ESP,7-5 2-6 9-7 6-4
+1968,Roland Garros,Clay,19680527,Ken Rosewall,AUS,2,33,Rod Laver,AUS,6-3 6-1 2-6 6-2
+1968,Wimbledon,Grass,19680624,Rod Laver,AUS,1,29,Tony Roche,AUS,6-3 6-4 6-2
+1968,US Open,Grass,19680829,Arthur Ashe,USA,5,25,Tom Okker,NED,14-12 5-7 6-3 3-6 6-3
+1969,Australian Open,Grass,19690120,Rod Laver,AUS,1,30,Andres Gimeno,ESP,6-3 6-4 7-5
+1969,Roland Garros,Clay,19690526,Rod Laver,AUS,1,30,Ken Rosewall,AUS,6-4 6-3 6-4
+1969,Wimbledon,Grass,19690623,Rod Laver,AUS,1,30,John Newcombe,AUS,6-4 5-7 6-4 6-4
+1969,US Open,Grass,19690827,Rod Laver,AUS,1,31,Tony Roche,AUS,7-9 6-1 6-2 6-2
+1970,Australian Open,Grass,19700119,Arthur Ashe,USA,4,26,Dick Crealy,AUS,6-4 9-7 6-2
+1970,Roland Garros,Clay,19700525,Jan Kodes,CZE,7,24,Zeljko Franulovic,CRO,6-2 6-4 6-0
+1970,Wimbledon,Grass,19700622,John Newcombe,AUS,2,26,Ken Rosewall,AUS,5-7 6-3 6-2 3-6 6-1
+1970,US Open,Grass,19700902,Ken Rosewall,AUS,3,35,Tony Roche,AUS,2-6 6-4 7-6 6-3
+1971,Australian Open,Grass,19710307,Ken Rosewall,AUS,2,36,Arthur Ashe,USA,6-1 7-5 6-3
+1971,Roland Garros,Clay,19710524,Jan Kodes,CZE,1,25,Ilie Nastase,ROU,8-6 6-2 2-6 7-5
+1971,Wimbledon,Grass,19710621,John Newcombe,AUS,2,27,Stan Smith,USA,6-3 5-7 2-6 6-4 6-4
+1971,US Open,Grass,19710901,Stan Smith,USA,2,24,Jan Kodes,CZE,3-6 6-3 6-2 7-6
+1971,Australian Open,Grass,19711227,Ken Rosewall,AUS,2,37,Mal Anderson,AUS,7-6 6-3 7-5
+1972,Roland Garros,Clay,19720522,Andres Gimeno,ESP,6,34,Patrick Proisy,FRA,4-6 6-3 6-1 6-1
+1972,Wimbledon,Grass,19720626,Stan Smith,USA,1,25,Ilie Nastase,ROU,4-6 6-3 6-3 4-6 7-5
+1972,US Open,Grass,19720830,Ilie Nastase,ROU,4,26,Arthur Ashe,USA,3-6 6-3 6-7 6-4 6-3
+1972,Australian Open,Grass,19721226,John Newcombe,AUS,2,28,Onny Parun,NZL,6-3 6-7 7-5 6-1
+1973,Roland Garros,Clay,19730521,Ilie Nastase,ROU,2,26,Nikola Pilic,CRO,6-3 6-3 6-0
+1973,Wimbledon,Grass,19730625,Jan Kodes,CZE,2,27,Alex Metreveli,GEO,6-1 9-8 6-3
+1973,US Open,Grass,19730829,John Newcombe,AUS,10,29,Jan Kodes,CZE,6-4 1-6 4-6 6-2 6-3
+1973,Australian Open,Grass,19731226,Jimmy Connors,USA,2,21,Phil Dent,AUS,7-6 6-4 4-6 6-3
+1974,Roland Garros,Clay,19740603,Bjorn Borg,SWE,3,17,Manuel Orantes,ESP,2-6 6-7 6-0 6-1 6-1
+1974,Wimbledon,Grass,19740624,Jimmy Connors,USA,3,21,Ken Rosewall,AUS,6-1 6-1 6-4
+1974,US Open,Grass,19740828,Jimmy Connors,USA,1,21,Ken Rosewall,AUS,6-1 6-0 6-1
+1974,Australian Open,Grass,19741226,John Newcombe,AUS,2,30,Jimmy Connors,USA,7-5 3-6 6-4 7-6
+1975,Roland Garros,Clay,19750604,Bjorn Borg,SWE,1,18,Guillermo Vilas,ARG,6-2 6-3 6-4
+1975,Wimbledon,Grass,19750623,Arthur Ashe,USA,6,31,Jimmy Connors,USA,6-1 6-1 5-7 6-4
+1975,US Open,Clay,19750827,Manuel Orantes,ESP,3,26,Jimmy Connors,USA,6-4 6-3 6-3
+1975,Australian Open,Grass,19751226,Mark Edmondson,AUS,,21,John Newcombe,AUS,6-7 6-3 7-6 6-1
+1976,Roland Garros,Clay,19760531,Adriano Panatta,ITA,8,25,Harold Solomon,USA,6-1 6-4 4-6 7-6
+1976,Wimbledon,Grass,19760621,Bjorn Borg,SWE,4,20,Ilie Nastase,ROU,6-4 6-2 9-7
+1976,US Open,Clay,19760901,Jimmy Connors,USA,1,23,Bjorn Borg,SWE,6-4 3-6 7-6 6-4
+1977,Australian Open,Grass,19770101,Roscoe Tanner,USA,2,25,Guillermo Vilas,ARG,6-3 6-3 6-3
+1977,Roland Garros,Clay,19770523,Guillermo Vilas,ARG,3,24,Brian Gottfried,USA,6-0 6-3 6-0
+1977,Wimbledon,Grass,19770620,Bjorn Borg,SWE,2,21,Jimmy Connors,USA,3-6 6-2 6-1 5-7 6-4
+1977,US Open,Clay,19770831,Guillermo Vilas,ARG,4,25,Jimmy Connors,USA,2-6 6-3 7-6 6-0
+1977,Australian Open,Grass,19771219,Vitas Gerulaitis,USA,1,23,John Lloyd,GBR,6-3 7-6 5-7 3-6 6-2
+1978,Roland Garros,Clay,19780529,Bjorn Borg,SWE,1,21,Guillermo Vilas,ARG,6-1 6-1 6-3
+1978,Wimbledon,Grass,19780626,Bjorn Borg,SWE,1,22,Jimmy Connors,USA,6-2 6-2 6-3
+1978,US Open,Hard,19780829,Jimmy Connors,USA,2,25,Bjorn Borg,SWE,6-4 6-2 6-2
+1978,Australian Open,Grass,19781225,Guillermo Vilas,ARG,1,26,John Marks,AUS,6-4 6-4 3-6 6-3
+1979,Roland Garros,Clay,19790528,Bjorn Borg,SWE,1,22,Victor Pecci,PAR,6-3 6-1 6-7 6-4
+1979,Wimbledon,Grass,19790625,Bjorn Borg,SWE,1,23,Roscoe Tanner,USA,6-7 6-1 3-6 6-3 6-4
+1979,US Open,Hard,19790828,John McEnroe,USA,3,20,Vitas Gerulaitis,USA,7-5 6-3 6-3
+1979,Australian Open,Grass,19791224,Guillermo Vilas,ARG,1,27,John Sadri,USA,7-6 6-3 6-2
+1980,Roland Garros,Clay,19800526,Bjorn Borg,SWE,1,23,Vitas Gerulaitis,USA,6-4 6-1 6-2
+1980,Wimbledon,Grass,19800623,Bjorn Borg,SWE,1,24,John McEnroe,USA,1-6 7-5 6-3 6-7 8-6
+1980,US Open,Hard,19800826,John McEnroe,USA,2,21,Bjorn Borg,SWE,7-6 6-1 6-7 5-7 6-4
+1980,Australian Open,Grass,19801226,Brian Teacher,USA,8,26,Kim Warwick,AUS,7-5 7-6 6-2
+1981,Roland Garros,Clay,19810525,Bjorn Borg,SWE,1,24,Ivan Lendl,USA,6-1 4-6 6-2 3-6 6-1
+1981,Wimbledon,Grass,19810622,John McEnroe,USA,2,22,Bjorn Borg,SWE,4-6 7-6 7-6 6-4
+1981,US Open,Hard,19810901,John McEnroe,USA,1,22,Bjorn Borg,SWE,4-6 6-2 6-4 6-3
+1981,Australian Open,Grass,19811224,Johan Kriek,USA,4,23,Steve Denton,USA,6-2 7-6 6-7 6-4
+1982,Roland Garros,Clay,19820524,Mats Wilander,SWE,,17,Guillermo Vilas,ARG,1-6 7-6 6-0 6-4
+1982,Wimbledon,Grass,19820621,Jimmy Connors,USA,2,29,John McEnroe,USA,3-6 6-3 6-7 7-6 6-4
+1982,US Open,Hard,19820831,Jimmy Connors,USA,2,29,Ivan Lendl,USA,6-3 6-2 4-6 6-4
+1982,Australian Open,Grass,19821202,Johan Kriek,USA,1,24,Steve Denton,USA,6-3 6-3 6-2
+1983,Roland Garros,Clay,19830523,Yannick Noah,FRA,6,23,Mats Wilander,SWE,6-2 7-5 7-6
+1983,Wimbledon,Grass,19830620,John McEnroe,USA,2,24,Chris Lewis,NZL,6-2 6-2 6-2
+1983,US Open,Hard,19830830,Jimmy Connors,USA,3,30,Ivan Lendl,USA,6-3 6-7 7-5 6-0
+1983,Australian Open,Grass,19831129,Mats Wilander,SWE,3,19,Ivan Lendl,USA,6-1 6-4 6-4
+1984,Roland Garros,Clay,19840528,Ivan Lendl,USA,2,24,John McEnroe,USA,3-6 2-6 6-4 7-5 7-5
+1984,Wimbledon,Grass,19840625,John McEnroe,USA,1,25,Jimmy Connors,USA,6-1 6-1 6-2
+1984,US Open,Hard,19840828,John McEnroe,USA,1,25,Ivan Lendl,USA,6-3 6-4 6-1
+1984,Australian Open,Grass,19841126,Mats Wilander,SWE,2,20,Kevin Curren,USA,6-7 6-4 7-6 6-2
+1985,Roland Garros,Clay,19850527,Mats Wilander,SWE,4,20,Ivan Lendl,USA,3-6 6-4 6-2 6-2
+1985,Wimbledon,Grass,19850624,Boris Becker,GER,,17,Kevin Curren,USA,6-3 6-7 7-6 6-4
+1985,US Open,Hard,19850827,Ivan Lendl,USA,2,25,John McEnroe,USA,7-6 6-3 6-4
+1985,Australian Open,Grass,19851125,Stefan Edberg,SWE,5,19,Mats Wilander,SWE,6-4 6-3 6-3
+1986,Roland Garros,Clay,19860526,Ivan Lendl,USA,1,26,Mikael Pernfors,SWE,6-3 6-2 6-4
+1986,Wimbledon,Grass,19860623,Boris Becker,GER,4,18,Ivan Lendl,USA,6-4 6-3 7-5
+1986,US Open,Hard,19860826,Ivan Lendl,USA,1,26,Miloslav Mecir Sr.,SVK,6-4 6-2 6-0
+1987,Australian Open,Grass,19870112,Stefan Edberg,SWE,4,20,Pat Cash,AUS,6-3 6-4 3-6 5-7 6-3
+1987,Roland Garros,Clay,19870525,Ivan Lendl,USA,1,27,Mats Wilander,SWE,7-5 6-2 3-6 7-6
+1987,Wimbledon,Grass,19870622,Pat Cash,AUS,11,22,Ivan Lendl,USA,7-6 6-2 7-5
+1987,US Open,Hard,19870901,Ivan Lendl,USA,1,27,Mats Wilander,SWE,6-7 6-0 7-6 6-4
+1988,Australian Open,Hard,19880111,Mats Wilander,SWE,3,23,Pat Cash,AUS,6-3 6-7 3-6 6-1 8-6
+1988,Roland Garros,Clay,19880523,Mats Wilander,SWE,3,23,Henri Leconte,FRA,7-5 6-2 6-1
+1988,Wimbledon,Grass,19880620,Stefan Edberg,SWE,3,22,Boris Becker,GER,4-6 7-6 6-4 6-2
+1988,US Open,Hard,19880829,Mats Wilander,SWE,2,24,Ivan Lendl,USA,6-4 4-6 6-3 5-7 6-4
+1989,Australian Open,Hard,19890116,Ivan Lendl,USA,2,28,Miloslav Mecir Sr.,SVK,6-2 6-2 6-2
+1989,Roland Garros,Clay,19890529,Michael Chang,USA,15,17,Stefan Edberg,SWE,6-1 3-6 4-6 6-4 6-2
+1989,Wimbledon,Grass,19890626,Boris Becker,GER,3,21,Stefan Edberg,SWE,6-0 7-6 6-4
+1989,US Open,Hard,19890828,Boris Becker,GER,2,21,Ivan Lendl,USA,7-6 1-6 6-3 7-6
+1990,Australian Open,Hard,19900115,Ivan Lendl,USA,1,29,Stefan Edberg,SWE,4-6 7-6 5-2 RET
+1990,Roland Garros,Clay,19900528,Andres Gomez,ECU,4,30,Andre Agassi,USA,6-3 2-6 6-4 6-4
+1990,Wimbledon,Grass,19900625,Stefan Edberg,SWE,3,24,Boris Becker,GER,6-2 6-2 3-6 3-6 6-4
+1990,US Open,Hard,19900827,Pete Sampras,USA,12,19,Andre Agassi,USA,6-4 6-3 6-2
+1991,Australian Open,Hard,19910114,Boris Becker,GER,2,23,Ivan Lendl,USA,1-6 6-4 6-4 6-4
+1991,Roland Garros,Clay,19910527,Jim Courier,USA,9,20,Andre Agassi,USA,3-6 6-4 2-6 6-1 6-4
+1991,Wimbledon,Grass,19910624,Michael Stich,GER,6,22,Boris Becker,GER,6-4 7-6(4) 6-4
+1991,US Open,Hard,19910826,Stefan Edberg,SWE,2,25,Jim Courier,USA,6-2 6-4 6-0
+1992,Australian Open,Hard,19920113,Jim Courier,USA,2,21,Stefan Edberg,SWE,6-3 3-6 6-4 6-2
+1992,Roland Garros,Clay,19920525,Jim Courier,USA,1,21,Petr Korda,CZE,7-5 6-2 6-1
+1992,Wimbledon,Grass,19920622,Andre Agassi,USA,12,22,Goran Ivanisevic,CRO,6-7(8) 6-4 6-4 1-6 6-4
+1992,US Open,Hard,19920831,Stefan Edberg,SWE,2,26,Pete Sampras,USA,3-6 6-4 7-6(5) 6-2
+1993,Australian Open,Hard,19930118,Jim Courier,USA,1,22,Stefan Edberg,SWE,6-2 6-1 2-6 7-5
+1993,Roland Garros,Clay,19930524,Sergi Bruguera,ESP,10,22,Jim Courier,USA,6-4 2-6 6-2 3-6 6-3
+1993,Wimbledon,Grass,19930621,Pete Sampras,USA,1,21,Jim Courier,USA,7-6(3) 7-6(6) 3-6 6-3
+1993,US Open,Hard,19930830,Pete Sampras,USA,2,22,Cedric Pioline,FRA,6-4 6-4 6-3
+1994,Australian Open,Hard,19940117,Pete Sampras,USA,1,22,Todd Martin,USA,7-6(4) 6-4 6-4
+1994,Roland Garros,Clay,19940523,Sergi Bruguera,ESP,6,23,Alberto Berasategui,ESP,6-3 7-5 2-6 6-1
+1994,Wimbledon,Grass,19940620,Pete Sampras,USA,1,22,Goran Ivanisevic,CRO,7-6(2) 7-6(5) 6-0
+1994,US Open,Hard,19940829,Andre Agassi,USA,,24,Michael Stich,GER,6-1 7-6(5) 7-5
+1995,Australian Open,Hard,19950116,Andre Agassi,USA,2,24,Pete Sampras,USA,4-6 6-1 7-6(6) 6-4
+1995,Roland Garros,Clay,19950529,Thomas Muster,AUT,5,27,Michael Chang,USA,7-5 6-2 6-4
+1995,Wimbledon,Grass,19950626,Pete Sampras,USA,2,23,Boris Becker,GER,6-7(5) 6-2 6-4 6-2
+1995,US Open,Hard,19950828,Pete Sampras,USA,2,24,Andre Agassi,USA,6-4 6-3 4-6 7-5
+1996,Australian Open,Hard,19960115,Boris Becker,GER,4,28,Michael Chang,USA,6-2 6-4 2-6 6-2
+1996,Roland Garros,Clay,19960527,Yevgeny Kafelnikov,RUS,6,22,Michael Stich,GER,7-6(4) 7-5 7-6(4)
+1996,Wimbledon,Grass,19960624,Richard Krajicek,NED,17,24,MaliVai Washington,USA,6-3 6-4 6-3
+1996,US Open,Hard,19960826,Pete Sampras,USA,1,25,Michael Chang,USA,6-1 6-4 7-6(3)
+1997,Australian Open,Hard,19970113,Pete Sampras,USA,1,25,Carlos Moya,ESP,6-2 6-3 6-3
+1997,Roland Garros,Clay,19970526,Gustavo Kuerten,BRA,,20,Sergi Bruguera,ESP,6-3 6-4 6-2
+1997,Wimbledon,Grass,19970623,Pete Sampras,USA,1,25,Cedric Pioline,FRA,6-4 6-2 6-4
+1997,US Open,Hard,19970825,Patrick Rafter,AUS,13,24,Greg Rusedski,GBR,6-3 6-2 4-6 7-5
+1998,Australian Open,Hard,19980119,Petr Korda,CZE,6,29,Marcelo Rios,CHI,6-2 6-2 6-2
+1998,Roland Garros,Clay,19980525,Carlos Moya,ESP,12,21,Alex Corretja,ESP,6-3 7-5 6-3
+1998,Wimbledon,Grass,19980622,Pete Sampras,USA,1,26,Goran Ivanisevic,CRO,6-7(2) 7-6(9) 6-4 3-6 6-2
+1998,US Open,Hard,19980831,Patrick Rafter,AUS,3,25,Mark Philippoussis,AUS,6-3 3-6 6-2 6-0
+1999,Australian Open,Hard,19990118,Yevgeny Kafelnikov,RUS,10,24,Thomas Enqvist,SWE,4-6 6-0 6-3 7-6(1)
+1999,Roland Garros,Clay,19990524,Andre Agassi,USA,13,29,Andrei Medvedev,UKR,1-6 2-6 6-4 6-3 6-4
+1999,Wimbledon,Grass,19990621,Pete Sampras,USA,1,27,Andre Agassi,USA,6-3 6-4 7-5
+1999,US Open,Hard,19990830,Andre Agassi,USA,2,29,Todd Martin,USA,6-4 6-7(5) 6-7(2) 6-3 6-2
+2000,Australian Open,Hard,20000117,Andre Agassi,USA,1,29,Yevgeny Kafelnikov,RUS,3-6 6-3 6-2 6-4
+2000,Roland Garros,Clay,20000529,Gustavo Kuerten,BRA,5,23,Magnus Norman,SWE,6-2 6-3 2-6 7-6(6)
+2000,Wimbledon,Grass,20000626,Pete Sampras,USA,1,28,Patrick Rafter,AUS,6-7(10) 7-6(5) 6-4 6-2
+2000,US Open,Hard,20000828,Marat Safin,RUS,6,20,Pete Sampras,USA,6-4 6-3 6-3
+2001,Australian Open,Hard,20010115,Andre Agassi,USA,6,30,Arnaud Clement,FRA,6-4 6-2 6-2
+2001,Roland Garros,Clay,20010528,Gustavo Kuerten,BRA,1,24,Alex Corretja,ESP,6-7(3) 7-5 6-2 6-0
+2001,Wimbledon,Grass,20010625,Goran Ivanisevic,CRO,,29,Patrick Rafter,AUS,6-3 3-6 6-3 2-6 9-7
+2001,US Open,Hard,20010827,Lleyton Hewitt,AUS,4,20,Pete Sampras,USA,7-6(4) 6-1 6-1
+2002,Australian Open,Hard,20020114,Thomas Johansson,SWE,16,26,Marat Safin,RUS,3-6 6-4 6-4 7-6(4)
+2002,Roland Garros,Clay,20020527,Albert Costa,ESP,20,26,Juan Carlos Ferrero,ESP,6-1 6-0 4-6 6-3
+2002,Wimbledon,Grass,20020624,Lleyton Hewitt,AUS,1,21,David Nalbandian,ARG,6-1 6-3 6-2
+2002,US Open,Hard,20020826,Pete Sampras,USA,17,31,Andre Agassi,USA,6-3 6-4 5-7 6-4
+2003,Australian Open,Hard,20030113,Andre Agassi,USA,2,32,Rainer Schuettler,GER,6-2 6-2 6-1
+2003,Roland Garros,Clay,20030526,Juan Carlos Ferrero,ESP,3,23,Martin Verkerk,NED,6-1 6-3 6-2
+2003,Wimbledon,Grass,20030623,Roger Federer,SUI,4,21,Mark Philippoussis,AUS,7-6(5) 6-2 7-6(3)
+2003,US Open,Hard,20030825,Andy Roddick,USA,4,20,Juan Carlos Ferrero,ESP,6-3 7-6(2) 6-3
+2004,Australian Open,Hard,20040119,Roger Federer,SUI,2,22,Marat Safin,RUS,7-6(3) 6-4 6-2
+2004,Roland Garros,Clay,20040524,Gaston Gaudio,ARG,,25,Guillermo Coria,ARG,0-6 3-6 6-4 6-1 8-6
+2004,Wimbledon,Grass,20040621,Roger Federer,SUI,1,22,Andy Roddick,USA,4-6 7-5 7-6(3) 6-4
+2004,US Open,Hard,20040830,Roger Federer,SUI,1,23,Lleyton Hewitt,AUS,6-0 7-6(3) 6-0
+2005,Australian Open,Hard,20050117,Marat Safin,RUS,4,24,Lleyton Hewitt,AUS,1-6 6-3 6-4 6-4
+2005,Roland Garros,Clay,20050523,Rafael Nadal,ESP,4,18,Mariano Puerta,ARG,6-7(6) 6-3 6-1 7-5
+2005,Wimbledon,Grass,20050620,Roger Federer,SUI,1,23,Andy Roddick,USA,6-2 7-6(2) 6-4
+2005,US Open,Hard,20050829,Roger Federer,SUI,1,24,Andre Agassi,USA,6-3 2-6 7-6(1) 6-1
+2006,Australian Open,Hard,20060116,Roger Federer,SUI,1,24,Marcos Baghdatis,CYP,5-7 7-5 6-0 6-2
+2006,Roland Garros,Clay,20060529,Rafael Nadal,ESP,2,19,Roger Federer,SUI,1-6 6-1 6-4 7-6(4)
+2006,Wimbledon,Grass,20060626,Roger Federer,SUI,1,24,Rafael Nadal,ESP,6-0 7-6(5) 6-7(2) 6-3
+2006,US Open,Hard,20060828,Roger Federer,SUI,1,25,Andy Roddick,USA,6-2 4-6 7-5 6-1
+2007,Australian Open,Hard,20070115,Roger Federer,SUI,1,25,Fernando Gonzalez,CHI,7-6(2) 6-4 6-4
+2007,Roland Garros,Clay,20070528,Rafael Nadal,ESP,2,20,Roger Federer,SUI,6-3 4-6 6-3 6-4
+2007,Wimbledon,Grass,20070625,Roger Federer,SUI,1,25,Rafael Nadal,ESP,7-6(7) 4-6 7-6(3) 2-6 6-2
+2007,US Open,Hard,20070827,Roger Federer,SUI,1,26,Novak Djokovic,SRB,7-6(4) 7-6(2) 6-4
+2008,Australian Open,Hard,20080114,Novak Djokovic,SRB,3,20,Jo-Wilfried Tsonga,FRA,4-6 6-4 6-3 7-6(2)
+2008,Roland Garros,Clay,20080525,Rafael Nadal,ESP,2,21,Roger Federer,SUI,6-1 6-3 6-0
+2008,Wimbledon,Grass,20080623,Rafael Nadal,ESP,2,22,Roger Federer,SUI,6-4 6-4 6-7(5) 6-7(8) 9-7
+2008,US Open,Hard,20080825,Roger Federer,SUI,2,27,Andy Murray,GBR,6-2 7-5 6-2
+2009,Australian Open,Hard,20090119,Rafael Nadal,ESP,1,22,Roger Federer,SUI,7-5 3-6 7-6(3) 3-6 6-2
+2009,Roland Garros,Clay,20090525,Roger Federer,SUI,2,27,Robin Soderling,SWE,6-1 7-6(1) 6-4
+2009,Wimbledon,Grass,20090622,Roger Federer,SUI,2,27,Andy Roddick,USA,5-7 7-6(6) 7-6(5) 3-6 16-14
+2009,US Open,Hard,20090831,Juan Martin del Potro,ARG,6,20,Roger Federer,SUI,3-6 7-6(5) 4-6 7-6(4) 6-2
+2010,Australian Open,Hard,20100118,Roger Federer,SUI,1,28,Andy Murray,GBR,6-3 6-4 7-6(11)
+2010,Roland Garros,Clay,20100524,Rafael Nadal,ESP,2,23,Robin Soderling,SWE,6-4 6-2 6-4
+2010,Wimbledon,Grass,20100621,Rafael Nadal,ESP,2,24,Tomas Berdych,CZE,6-3 7-5 6-4
+2010,US Open,Hard,20100830,Rafael Nadal,ESP,1,24,Novak Djokovic,SRB,6-4 5-7 6-4 6-2
+2011,Australian Open,Hard,20110117,Novak Djokovic,SRB,3,23,Andy Murray,GBR,6-4 6-2 6-3
+2011,Roland Garros,Clay,20110522,Rafael Nadal,ESP,1,24,Roger Federer,SUI,7-5 7-6(3) 5-7 6-1
+2011,Wimbledon,Grass,20110620,Novak Djokovic,SRB,2,24,Rafael Nadal,ESP,6-4 6-1 1-6 6-3
+2011,US Open,Hard,20110829,Novak Djokovic,SRB,1,24,Rafael Nadal,ESP,6-2 6-4 6-7(3) 6-1
+2012,Australian Open,Hard,20120116,Novak Djokovic,SRB,1,24,Rafael Nadal,ESP,5-7 6-4 6-2 6-7(5) 7-5
+2012,Roland Garros,Clay,20120527,Rafael Nadal,ESP,2,25,Novak Djokovic,SRB,6-4 6-3 2-6 7-5
+2012,Wimbledon,Grass,20120625,Roger Federer,SUI,3,30,Andy Murray,GBR,4-6 7-5 6-3 6-4
+2012,US Open,Hard,20120827,Andy Murray,GBR,3,25,Novak Djokovic,SRB,7-6(10) 7-5 2-6 3-6 6-2
+2013,Australian Open,Hard,20130114,Novak Djokovic,SRB,1,25,Andy Murray,GBR,6-7(2) 7-6(3) 6-3 6-2
+2013,Roland Garros,Clay,20130527,Rafael Nadal,ESP,3,26,David Ferrer,ESP,6-3 6-2 6-3
+2013,Wimbledon,Grass,20130624,Andy Murray,GBR,2,26,Novak Djokovic,SRB,6-4 7-5 6-4
+2013,US Open,Hard,20130826,Rafael Nadal,ESP,2,27,Novak Djokovic,SRB,6-2 3-6 6-4 6-1
+2014,Australian Open,Hard,20140113,Stan Wawrinka,SUI,8,28,Rafael Nadal,ESP,6-3 6-2 3-6 6-3
+2014,Roland Garros,Clay,20140526,Rafael Nadal,ESP,1,27,Novak Djokovic,SRB,3-6 7-5 6-2 6-4
+2014,Wimbledon,Grass,20140623,Novak Djokovic,SRB,1,27,Roger Federer,SUI,6-7(7) 6-4 7-6(4) 5-7 6-4
+2014,US Open,Hard,20140825,Marin Cilic,CRO,14,25,Kei Nishikori,JPN,6-3 6-3 6-3
+2015,Australian Open,Hard,20150119,Novak Djokovic,SRB,1,27,Andy Murray,GBR,7-6(5) 6-7(4) 6-3 6-0
+2015,Roland Garros,Clay,20150524,Stan Wawrinka,SUI,8,30,Novak Djokovic,SRB,4-6 6-4 6-3 6-4
+2015,Wimbledon,Grass,20150629,Novak Djokovic,SRB,1,28,Roger Federer,SUI,7-6(1) 6-7(10) 6-4 6-3
+2015,US Open,Hard,20150831,Novak Djokovic,SRB,1,28,Roger Federer,SUI,6-4 5-7 6-4 6-4
+2016,Australian Open,Hard,20160118,Novak Djokovic,SRB,1,28,Andy Murray,GBR,6-1 7-5 7-6(3)
+2016,Roland Garros,Clay,20160523,Novak Djokovic,SRB,1,29,Andy Murray,GBR,3-6 6-1 6-2 6-4
+2016,Wimbledon,Grass,20160627,Andy Murray,GBR,2,29,Milos Raonic,CAN,6-4 7-6(3) 7-6(2)
+2016,US Open,Hard,20160829,Stan Wawrinka,SUI,3,31,Novak Djokovic,SRB,6-7(1) 6-4 7-5 6-3
+2017,Australian Open,Hard,20170116,Roger Federer,SUI,17,35,Rafael Nadal,ESP,6-4 3-6 6-1 3-6 6-3
+2017,Roland Garros,Clay,20170529,Rafael Nadal,ESP,4,30,Stan Wawrinka,SUI,6-2 6-3 6-1
+2017,Wimbledon,Grass,20170703,Roger Federer,SUI,3,35,Marin Cilic,CRO,6-3 6-1 6-4
+2017,US Open,Hard,20170828,Rafael Nadal,ESP,1,31,Kevin Anderson,RSA,6-3 6-3 6-4
+2018,Australian Open,Hard,20180115,Roger Federer,SUI,2,36,Marin Cilic,CRO,6-2 6-7(5) 6-3 3-6 6-1
+2018,Roland Garros,Clay,20180528,Rafael Nadal,ESP,1,31,Dominic Thiem,AUT,6-4 6-3 6-2
+2018,Wimbledon,Grass,20180702,Novak Djokovic,SRB,12,31,Kevin Anderson,RSA,6-2 6-2 7-6(3)
+2018,US Open,Hard,20180827,Novak Djokovic,SRB,6,31,Juan Martin del Potro,ARG,6-3 7-6(4) 6-3
+2019,Australian Open,Hard,20190114,Novak Djokovic,SRB,1,31,Rafael Nadal,ESP,6-3 6-2 6-3
+2019,Roland Garros,Clay,20190527,Rafael Nadal,ESP,2,32,Dominic Thiem,AUT,6-3 5-7 6-1 6-1
+2019,Wimbledon,Grass,20190701,Novak Djokovic,SRB,1,32,Roger Federer,SUI,7-6(5) 1-6 7-6(4) 4-6 13-12(3)
+2019,US Open,Hard,20190826,Rafael Nadal,ESP,2,33,Daniil Medvedev,RUS,7-5 6-3 5-7 4-6 6-4
+2020,Australian Open,Hard,20200120,Novak Djokovic,SRB,2,32,Dominic Thiem,AUT,6-4 4-6 2-6 6-3 6-4
+2020,US Open,Hard,20200831,Dominic Thiem,AUT,2,26,Alexander Zverev,GER,2-6 4-6 6-4 6-3 7-6(6)
+2020,Roland Garros,Clay,20200928,Rafael Nadal,ESP,2,34,Novak Djokovic,SRB,6-0 6-2 7-5
+2021,Australian Open,Hard,20210208,Novak Djokovic,SRB,1,33,Daniil Medvedev,RUS,7-5 6-2 6-2
+2021,Roland Garros,Clay,20210531,Novak Djokovic,SRB,1,34,Stefanos Tsitsipas,GRE,6-7(6) 2-6 6-3 6-2 6-4
+2021,Wimbledon,Grass,20210628,Novak Djokovic,SRB,1,34,Matteo Berrettini,ITA,6-7(4) 6-4 6-4 6-3
+2021,US Open,Hard,20210830,Daniil Medvedev,RUS,2,25,Novak Djokovic,SRB,6-4 6-4 6-4
+2022,Australian Open,Hard,20220117,Rafael Nadal,ESP,6,35,Daniil Medvedev,RUS,2-6 6-7(5) 6-4 6-4 7-5
+2022,Roland Garros,Clay,20220523,Rafael Nadal,ESP,5,35,Casper Ruud,NOR,6-3 6-3 6-0
+2022,Wimbledon,Grass,20220627,Novak Djokovic,SRB,1,35,Nick Kyrgios,AUS,4-6 6-3 6-4 7-6(3)
+2022,US Open,Hard,20220829,Carlos Alcaraz,ESP,3,19,Casper Ruud,NOR,6-4 2-6 7-6(1) 6-3
+2023,Australian Open,Hard,20230116,Novak Djokovic,SRB,4,35,Stefanos Tsitsipas,GRE,6-3 7-6(4) 7-6(5)
+2023,Roland Garros,Clay,20230529,Novak Djokovic,SRB,3,36,Casper Ruud,NOR,7-6(1) 6-3 7-5
+2023,Wimbledon,Grass,20230703,Carlos Alcaraz,ESP,1,20,Novak Djokovic,SRB,1-6 7-6(6) 6-1 3-6 6-4
+2023,US Open,Hard,20230828,Novak Djokovic,SRB,2,36,Daniil Medvedev,RUS,6-3 7-6(5) 6-3
+2024,Australian Open,Hard,20240115,Jannik Sinner,ITA,4,22,Daniil Medvedev,RUS,3-6 3-6 6-4 6-4 6-3
+2024,Roland Garros,Clay,20240526,Carlos Alcaraz,ESP,3,21,Alexander Zverev,GER,6-3 2-6 5-7 6-1 6-2
+2024,Wimbledon,Grass,20240701,Carlos Alcaraz,ESP,3,21,Novak Djokovic,SRB,6-2 6-2 7-6(4)
+2024,US Open,Hard,20240826,Jannik Sinner,ITA,1,23,Taylor Fritz,USA,6-3 6-4 7-5
+2025,Australian Open,Hard,20250113,Jannik Sinner,ITA,1,23,Alexander Zverev,GER,6-3 7-6(4) 6-3
+2025,Roland Garros,Clay,20250526,Carlos Alcaraz,ESP,2,22,Jannik Sinner,ITA,4-6 6-7(4) 6-4 7-6(3) 7-6(2)
+2025,Wimbledon,Grass,20250630,Jannik Sinner,ITA,1,23,Carlos Alcaraz,ESP,4-6 6-4 6-4 6-4
+2025,US Open,Hard,20250824,Carlos Alcaraz,ESP,2,22,Jannik Sinner,ITA,6-2 3-6 6-1 6-4
