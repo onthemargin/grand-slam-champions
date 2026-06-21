@@ -489,6 +489,17 @@ const c5_spot = view(Inputs.select(
 ```js
 const c5_slamOrder = ["Australian Open", "Roland Garros", "Wimbledon", "US Open"];
 const c5_topset = new Set(TOP_NAMES);
+// Piecewise-linear x: years after the break get ~2.4x the width per year, so the
+// dense modern era gets room to breathe. Continuous (no gap) — a block spanning
+// the break just widens; the break is flagged on the axis.
+const c5_break = 2000;
+const c5_post = 2.1;
+const c5_warp = (year) => (year <= c5_break ? year - minYear : (c5_break - minYear) + (year - c5_break) * c5_post);
+const c5_warpMax = c5_warp(maxYear + 1);
+const c5_ticks = [1970, 1980, 1990, 2000, 2005, 2010, 2015, 2020, 2025]
+  .filter((y) => y >= minYear && y <= maxYear + 1)
+  .map((y) => ({y, w: c5_warp(y)}));
+const c5_tickMap = new Map(c5_ticks.map((d) => [d.w, d.y]));
 const c5_blocks = reignBlocks(champions).map((b) => {
   const isTop = c5_topset.has(b.champion);
   let fill = isTop ? colorForPlayer(TOP_NAMES, b.champion) : "#dad5cb";
@@ -499,42 +510,42 @@ const c5_blocks = reignBlocks(champions).map((b) => {
   }
   // Default: label every reign. Spotlight: label only the chosen champion.
   const labelled = c5_spot === "— none —" ? b.count >= 2 : b.champion === c5_spot;
-  return {...b, _fill: fill, _ink: ink, _label: labelled ? lastName(b.champion) : ""};
+  const x1w = c5_warp(b.startYear), x2w = c5_warp(b.endYear + 1);
+  return {...b, _fill: fill, _ink: ink, _label: labelled ? lastName(b.champion) : "", x1w, x2w, cxw: (x1w + x2w) / 2};
 });
 ```
 ```js
 Plot.plot({
   ...base,
   width,
-  height: 280,
-  marginTop: 26,
+  height: 296,
+  marginTop: 36,
   marginLeft: 112,
   marginRight: 16,
-  x: {label: null, tickFormat: "d", domain: [minYear, maxYear + 1], ticks: d3.range(1970, maxYear + 1, 10)},
+  x: {label: null, domain: [0, c5_warpMax], axis: null},
   y: {domain: c5_slamOrder, label: null, tickSize: 0},
   color: {type: "identity"},
   marks: [
-    Plot.barX(c5_blocks, {x1: "startYear", x2: (d) => d.endYear + 1, y: "slam", fill: "_fill",
+    Plot.axisX(c5_ticks.map((d) => d.w), {tickFormat: (w) => String(c5_tickMap.get(w)), tickSize: 0, fontSize: 11}),
+    Plot.barX(c5_blocks, {x1: "x1w", x2: "x2w", y: "slam", fill: "_fill",
       stroke: "white", strokeWidth: 1.4, insetTop: 6, insetBottom: 6,
       tip: true, channels: {champion: "champion",
         reign: (d) => d.startYear === d.endYear ? `${d.startYear}` : `${d.startYear}–${d.endYear}`,
         "titles in a row": "count"}}),
-    Plot.text(c5_blocks, {x: (d) => (d.startYear + d.endYear + 1) / 2, y: "slam", text: "_label",
-      fill: "_ink", fontSize: 10, fontWeight: 600})
+    Plot.text(c5_blocks, {x: "cxw", y: "slam", text: "_label", fill: "_ink", fontSize: 10, fontWeight: 600}),
+    Plot.ruleX([c5_warp(c5_break)], {stroke: "#8d877c", strokeWidth: 1, strokeDasharray: "4 3"}),
+    Plot.text([{w: c5_warp(c5_break), t: `${c5_break} — wider scale →`, slam: c5_slamOrder[0]}],
+      {x: "w", y: "slam", dy: -25, dx: 6, textAnchor: "start", text: "t", fontSize: 10.5, fontStyle: "italic", fill: "#8b857b"})
   ]
 })
 ```
 
-<div class="fignote">One champion per tournament per year; consecutive titles merge into a reign, labelled when two or more. Gaps are years a major wasn't held. Hover any block for the champion and years.</div></div>
+<div class="fignote">One champion per tournament per year; consecutive titles merge into a reign, labelled when two or more. Years after 2000 are drawn wider. Hover any block for details.</div></div>
 
 <hr class="rule">
 
 ```js
-html`<div class="attrib">
-  <strong>About this data.</strong> ${meta.attribution}${meta.note ? " " + meta.note : ""}
-  Sources: ${meta.sources.map((s, i) => html`${i ? html` · ` : ""}<a href=${s.url} target="_blank" rel="noopener">${s.name}</a>`)}.
-  License: ${meta.license}. Updated by re-running the project's fetch step after each major.
-</div>`
+html`<div class="attrib">Data: official ATP results via <a href="https://github.com/JeffSackmann" target="_blank" rel="noopener">Tennis Abstract</a> &amp; <a href="https://github.com/Tennismylife/TML-Database" target="_blank" rel="noopener">TML&#8209;Database</a>. Non-commercial use.</div>`
 ```
 
 </div>
